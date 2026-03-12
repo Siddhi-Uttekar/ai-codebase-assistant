@@ -8,12 +8,11 @@ def load_code_files(repo_path):
 
         for file in files:
 
-            if file.endswith((".py",".js",".ts",".java",".cpp")):
+            if file.endswith((".py", ".js", ".ts", ".java", ".cpp")):
 
-                path = os.path.join(root,file)
+                path = os.path.join(root, file)
 
-                with open(path,"r",encoding="utf-8") as f:
-
+                with open(path, "r", encoding="utf-8") as f:
                     content = f.read()
 
                 documents.append({

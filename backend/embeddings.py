@@ -3,7 +3,8 @@ from langchain_huggingface import HuggingFaceEmbeddings
 def load_embeddings():
 
     embeddings = HuggingFaceEmbeddings(
-        model_name="all-MiniLM-L6-v2"
+        model_name="BAAI/bge-small-en-v1.5"
+            
     )
 
     return embeddings

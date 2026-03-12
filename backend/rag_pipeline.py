@@ -27,29 +27,49 @@ def ask_codebase(question):
     vector_store = load_vector_store(embeddings)
 
     retriever = vector_store.as_retriever(
-        search_kwargs={"k":5}
+        search_kwargs={"k":10}
     )
 
     docs = retriever.invoke(question)
 
-    context = "\n\n".join([doc.page_content for doc in docs])
+    context = "\n\n".join([
+        f"""
+### File: {doc.metadata.get('file_path','unknown')}
+
+{doc.page_content}
+"""
+        for doc in docs
+    ])
 
     prompt = f"""
+You are an expert Senior Software Engineer.
 
-You are an expert Senior Software Engineer. Your task is to explain the codebase and solve issues based ONLY on the provided context.
+Explain the repository using ONLY the provided context.
 
 GUIDELINES:
-1. If the answer isn't in the context, say "I don't see that specific implementation in the current files."
-2. When referencing code, mention the filename.
-3. If providing a fix, show the specific lines to change.
-4. If the code uses specific libraries (like Vite, Tailwind, or Groq), ensure your explanation respects those technologies.
 
-Code Context:
+- If the answer is not in the context say:
+"I don't see that specific implementation in the current files."
+
+- Do NOT output full code unless the user explicitly asks for it.
+- Summarize the functionality instead.
+- Mention file names when referring to code.
+
+Formatting Rules (Markdown):
+- Use ## headings
+- Use **bold** for important concepts
+- Use bullet points for lists
+- Use code blocks only for small examples
+
+---
+
+### Code Context
 {context}
 
-Question:
+### Question
 {question}
 
+### Answer
 """
 
     answer = ask_llm(prompt)
