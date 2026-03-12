@@ -1,8 +1,8 @@
-from .loader import load_code_files
-from .chunker import chunk_documents
-from .embeddings import load_embeddings
-from .vector_store import create_vector_store,load_vector_store
-from .llm import ask_llm
+from loader import load_code_files
+from chunker import chunk_documents
+from embeddings import load_embeddings
+from vector_store import create_vector_store,load_vector_store
+from llm import ask_llm
 
 REPO_PATH = "backend/repo_data"
 
@@ -36,9 +36,13 @@ def ask_codebase(question):
 
     prompt = f"""
 
-You are a senior software engineer.
+You are an expert Senior Software Engineer. Your task is to explain the codebase and solve issues based ONLY on the provided context.
 
-Use the code snippets below to answer the question.
+GUIDELINES:
+1. If the answer isn't in the context, say "I don't see that specific implementation in the current files."
+2. When referencing code, mention the filename.
+3. If providing a fix, show the specific lines to change.
+4. If the code uses specific libraries (like Vite, Tailwind, or Groq), ensure your explanation respects those technologies.
 
 Code Context:
 {context}

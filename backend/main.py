@@ -30,11 +30,18 @@
 #     return {"answer":answer}
 from fastapi import FastAPI
 from pydantic import BaseModel
-from rag.pipeline import build_index, ask_codebase
+from rag_pipeline import build_index, ask_codebase
 from services.github_loader import clone_repo
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
-
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 class RepoRequest(BaseModel):
     repo_url: str
