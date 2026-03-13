@@ -1,7 +1,0 @@
-langchain
-faiss-cpu
-sentence-transformers
-fastapi
-uvicorn
-python-dotenv
-groq
