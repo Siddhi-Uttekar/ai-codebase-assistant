@@ -5,3 +5,6 @@ fastapi
 uvicorn
 python-dotenv
 groq
+langchain-text-splitters
+langchain-community
+langchain-huggingface
