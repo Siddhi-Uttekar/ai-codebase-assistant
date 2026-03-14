@@ -13,16 +13,17 @@ from huggingface_hub import login
 from langchain_huggingface import HuggingFaceEmbeddings
 
 
+# Login to HuggingFace using Render environment variable
+token = os.getenv("HF_TOKEN")
+if token:
+    login(token)
+
+
+# Load embeddings model ONCE when the server starts
+embeddings = HuggingFaceEmbeddings(
+    model_name="sentence-transformers/all-MiniLM-L6-v2"
+)
+
+
 def load_embeddings():
-
-    # Get token from Render environment variable
-    token = os.getenv("HF_TOKEN")
-
-    if token:
-        login(token)
-
-    embeddings = HuggingFaceEmbeddings(
-        model_name="sentence-transformers/all-MiniLM-L6-v2"
-    )
-
     return embeddings
