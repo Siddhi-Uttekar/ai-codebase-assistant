@@ -2,6 +2,7 @@ import { useState } from "react"
 import Message from "./Messege"
 import ChatInput from "./ChatInput"
 import EmptyState from "./EmptyState"
+const API_URL = import.meta.env.VITE_API_URL
 
 type ChatMessage = {
   role: "user" | "assistant"
@@ -27,7 +28,7 @@ export default function ChatWindow() {
     setLoading(true)
 
     try {
-      const res = await fetch("http://127.0.0.1:8000/ask", {
+      const res = await fetch(`${API_URL}/ask`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
