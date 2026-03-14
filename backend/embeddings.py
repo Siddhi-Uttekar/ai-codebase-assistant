@@ -22,7 +22,7 @@ def load_embeddings():
         login(token)
 
     embeddings = HuggingFaceEmbeddings(
-        model_name="BAAI/bge-small-en-v1.5"
+        model_name="sentence-transformers/all-MiniLM-L6-v2"
     )
 
     return embeddings
