@@ -1,5 +1,6 @@
 import { useState } from "react"
 import type { StatusState } from "./StatusBar"
+const API_URL = import.meta.env.VITE_API_URL
 
 type Props = {
   onStatusChange?: (status: StatusState) => void
@@ -40,7 +41,7 @@ export default function RepoLoader({ onStatusChange }: Props) {
     })
 
     try {
-      const res = await fetch("http://127.0.0.1:8000/load-repo", {
+      const res = await fetch(`${API_URL}/load-repo`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
