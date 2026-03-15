@@ -1,6 +1,6 @@
 from loader import load_code_files
 from chunker import chunk_documents
-from embeddings import get_embeddings
+from embeddings import get_embedding
 from vector_store import create_vector_store,load_vector_store
 from llm import ask_llm
 
