@@ -7,24 +7,38 @@ from llm import ask_llm
 REPO_PATH = "backend/repo_data"
 
 
+# def build_index():
+
+#     documents = load_code_files(REPO_PATH)
+
+#     chunks = chunk_documents(documents)
+
+#     embeddings = load_embeddings()
+
+#     vector_store = create_vector_store(chunks,embeddings)
+
+#     return vector_store
 def build_index():
 
     documents = load_code_files(REPO_PATH)
 
     chunks = chunk_documents(documents)
 
-    embeddings = load_embeddings()
+    embeddings = []
 
-    vector_store = create_vector_store(chunks,embeddings)
+    for chunk in chunks:
+        embedding = load_embeddings(chunk.page_content)
+        embeddings.append(embedding)
+
+    vector_store = create_vector_store(chunks, embeddings)
 
     return vector_store
 
-
 def ask_codebase(question):
 
-    embeddings = load_embeddings()
+    
 
-    vector_store = load_vector_store(embeddings)
+    vector_store = load_vector_store()
 
     retriever = vector_store.as_retriever(
         search_kwargs={"k":10}
