@@ -7,7 +7,7 @@ def create_vector_store(chunks, embeddings):
     text_embeddings = list(zip(chunks, embeddings))
 
     vector_store = FAISS.from_embeddings(
-        text_embeddings
+        text_embeddings, embedding
     )
 
     vector_store.save_local("vector_db")
