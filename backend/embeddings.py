@@ -3,7 +3,7 @@ import os
 
 VOYAGE_API_KEY = os.getenv("VOYAGE_API_KEY")
 
-def get_embedding(text):
+def load_embeddings(text):
     response = requests.post(
         "https://api.voyageai.com/v1/embeddings",
         headers={
