@@ -1,29 +1,19 @@
-# from langchain_huggingface import HuggingFaceEmbeddings
-
-# def load_embeddings():
-
-#     embeddings = HuggingFaceEmbeddings(
-#         model_name="BAAI/bge-small-en-v1.5"
-            
-#     )
-
-#     return embeddings
+import requests
 import os
-from huggingface_hub import login
-from langchain_huggingface import HuggingFaceEmbeddings
 
+VOYAGE_API_KEY = os.getenv("VOYAGE_API_KEY")
 
-# Login to HuggingFace using Render environment variable
-token = os.getenv("HF_TOKEN")
-if token:
-    login(token)
+def get_embedding(text):
+    response = requests.post(
+        "https://api.voyageai.com/v1/embeddings",
+        headers={
+            "Authorization": f"Bearer {VOYAGE_API_KEY}",
+            "Content-Type": "application/json"
+        },
+        json={
+            "model": "voyage-code-2",
+            "input": text
+        }
+    )
 
-
-# Load embeddings model ONCE when the server starts
-embeddings = HuggingFaceEmbeddings(
-    model_name="sentence-transformers/all-MiniLM-L6-v2"
-)
-
-
-def load_embeddings():
-    return embeddings
+    return response.json()["data"][0]["embedding"]
