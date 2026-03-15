@@ -18,7 +18,13 @@ REPO_PATH = "backend/repo_data"
 #     vector_store = create_vector_store(chunks,embeddings)
 
 #     return vector_store
+import os
+
 def build_index():
+
+    if os.path.exists("vector_db"):
+        print("Vector DB already exists. Skipping indexing.")
+        return
 
     documents = load_code_files(REPO_PATH)
 
@@ -28,9 +34,7 @@ def build_index():
 
     embeddings = load_embeddings(texts)
 
-    vector_store = create_vector_store(chunks, embeddings)
-
-    return vector_store
+    create_vector_store(chunks, embeddings)
 
 def ask_codebase(question):
 
