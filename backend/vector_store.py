@@ -25,12 +25,12 @@
 
 #     return vector_store
 from langchain_community.vectorstores import FAISS
-from embeddings import VoyageEmbeddings
+from embeddings import load_embeddings
 
 
 def create_vector_store(chunks):
 
-    embeddings = VoyageEmbeddings()
+    embeddings = load_embeddings()
 
     vector_store = FAISS.from_texts(
         chunks,
@@ -44,7 +44,7 @@ def create_vector_store(chunks):
 
 def load_vector_store():
 
-    embeddings = VoyageEmbeddings()
+    embeddings = load_embeddings()
 
     vector_store = FAISS.load_local(
         "vector_db",
