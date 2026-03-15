@@ -39,7 +39,9 @@ def build_index():
 def ask_codebase(question):
 
     
-
+    if not os.path.exists("vector_db"):
+        print("Vector DB not found. Building index...")
+        build_index()
     vector_store = load_vector_store()
 
     retriever = vector_store.as_retriever(
