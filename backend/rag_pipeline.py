@@ -27,7 +27,7 @@ def build_index():
     embeddings = []
 
     for chunk in chunks:
-        embedding = load_embeddings(chunk.page_content)
+        embedding = load_embeddings(chunk)
         embeddings.append(embedding)
 
     vector_store = create_vector_store(chunks, embeddings)
