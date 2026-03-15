@@ -24,11 +24,9 @@ def build_index():
 
     chunks = chunk_documents(documents)
 
-    embeddings = []
+    texts = [chunk for chunk in chunks]
 
-    for chunk in chunks:
-        embedding = load_embeddings(chunk)
-        embeddings.append(embedding)
+    embeddings = load_embeddings(texts)
 
     vector_store = create_vector_store(chunks, embeddings)
 
