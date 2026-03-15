@@ -29,7 +29,7 @@ import os
 import requests
 from langchain_core.embeddings import Embeddings
 
-class VoyageEmbeddings(Embeddings):
+class load_embeddings(Embeddings):
 
     def embed_documents(self, texts):
         vectors = []
