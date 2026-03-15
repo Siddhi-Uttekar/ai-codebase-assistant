@@ -4,6 +4,7 @@ import os
 VOYAGE_API_KEY = os.getenv("VOYAGE_API_KEY")
 
 def load_embeddings(text):
+
     response = requests.post(
         "https://api.voyageai.com/v1/embeddings",
         headers={
@@ -11,9 +12,14 @@ def load_embeddings(text):
             "Content-Type": "application/json"
         },
         json={
-            "model": "voyage-code-2",
-            "input": text
+            "model": "voyage-2",
+            "input": [text]
         }
     )
 
-    return response.json()["data"][0]["embedding"]
+    data = response.json()
+
+    if "data" not in data:
+        raise Exception(f"Voyage API Error: {data}")
+
+    return data["data"][0]["embedding"]
